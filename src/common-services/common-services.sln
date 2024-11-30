@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35521.163 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "a", "a\a.csproj", "{88245A55-2C1C-4FC6-BF78-3F2C5DE8459C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media.Api", "MediaService\Media.Api\Media.Api.csproj", "{8B99CEF3-268B-4833-A44C-6A5AA3B4C828}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediaService", "MediaService", "{10CA0A1B-7087-4050-8CF8-B6B84E619C8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media.Application", "MediaService\Media.Application\Media.Application.csproj", "{325CB3DB-6F47-491C-8F93-713F4946A4D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media.Core", "MediaService\Media.Core\Media.Core.csproj", "{B86560CA-80F9-4951-80DC-F401A0BF8B00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media.DataPersistance", "MediaService\Media.DataPersistance\Media.DataPersistance.csproj", "{3894CB05-037C-4BE0-837E-8CFAD15E3B85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media.Infrastructure", "MediaService\Media.Infrastructure\Media.Infrastructure.csproj", "{0F292BD4-5EBA-4F58-8A88-7DC29DF54275}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +21,35 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{88245A55-2C1C-4FC6-BF78-3F2C5DE8459C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88245A55-2C1C-4FC6-BF78-3F2C5DE8459C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88245A55-2C1C-4FC6-BF78-3F2C5DE8459C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88245A55-2C1C-4FC6-BF78-3F2C5DE8459C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B99CEF3-268B-4833-A44C-6A5AA3B4C828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B99CEF3-268B-4833-A44C-6A5AA3B4C828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B99CEF3-268B-4833-A44C-6A5AA3B4C828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B99CEF3-268B-4833-A44C-6A5AA3B4C828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{325CB3DB-6F47-491C-8F93-713F4946A4D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{325CB3DB-6F47-491C-8F93-713F4946A4D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{325CB3DB-6F47-491C-8F93-713F4946A4D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{325CB3DB-6F47-491C-8F93-713F4946A4D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B86560CA-80F9-4951-80DC-F401A0BF8B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B86560CA-80F9-4951-80DC-F401A0BF8B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B86560CA-80F9-4951-80DC-F401A0BF8B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B86560CA-80F9-4951-80DC-F401A0BF8B00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3894CB05-037C-4BE0-837E-8CFAD15E3B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3894CB05-037C-4BE0-837E-8CFAD15E3B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3894CB05-037C-4BE0-837E-8CFAD15E3B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3894CB05-037C-4BE0-837E-8CFAD15E3B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F292BD4-5EBA-4F58-8A88-7DC29DF54275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F292BD4-5EBA-4F58-8A88-7DC29DF54275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F292BD4-5EBA-4F58-8A88-7DC29DF54275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F292BD4-5EBA-4F58-8A88-7DC29DF54275}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8B99CEF3-268B-4833-A44C-6A5AA3B4C828} = {10CA0A1B-7087-4050-8CF8-B6B84E619C8A}
+		{325CB3DB-6F47-491C-8F93-713F4946A4D2} = {10CA0A1B-7087-4050-8CF8-B6B84E619C8A}
+		{B86560CA-80F9-4951-80DC-F401A0BF8B00} = {10CA0A1B-7087-4050-8CF8-B6B84E619C8A}
+		{3894CB05-037C-4BE0-837E-8CFAD15E3B85} = {10CA0A1B-7087-4050-8CF8-B6B84E619C8A}
+		{0F292BD4-5EBA-4F58-8A88-7DC29DF54275} = {10CA0A1B-7087-4050-8CF8-B6B84E619C8A}
 	EndGlobalSection
 EndGlobal

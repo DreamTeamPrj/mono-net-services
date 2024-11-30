@@ -1,0 +1,17 @@
+1. Task (Задача)
+	- Id
+	- Number (генерируемый, уникальный)
+	- Title (Заголовок)
+	- DescriptionId
+	- PriorityId
+	- StatusId (из ProjectService)
+	- ProjectId (из ProjectService)
+
+2. Descritpion (Описание)
+	- Id
+	- TaskId
+	- DocumentLink (ключ/ссылка на документ в хранилище)
+
+3. Priority (Приоритет)
+	- Id
+	- Name
