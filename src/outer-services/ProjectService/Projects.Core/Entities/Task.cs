@@ -8,7 +8,7 @@ namespace Projects.Core.Entities
         public string Number { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public int Staus { get; set; }
+        public int Status { get; set; }
         public Priority Priority { get; set; }
         public int Creator {  get; set; }
         public int Worker { get; set; }
