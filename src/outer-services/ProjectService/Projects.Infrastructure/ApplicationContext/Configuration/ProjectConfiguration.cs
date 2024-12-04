@@ -1,9 +1,8 @@
-﻿namespace Projects.Infrastructure.ApplicationContext.Configuration
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Projects.Core.Entities;
+namespace Projects.Infrastructure.ApplicationContext.Configuration
 {
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Projects.Core.Entities;
-
     public class ProjectConfiguration : IEntityTypeConfiguration<Project>
     {
         public void Configure(EntityTypeBuilder<Project> builder)
