@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskService", "TaskService", "{C3CEA1F1-F1DE-46E3-BB54-4F1BC03140D2}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projects.DataPersistance", "ProjectService\Projects.DataPersistance\Projects.DataPersistance.csproj", "{6FAC2FF7-0A31-4EB6-AD96-213D607859D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projects.Infrastructure", "ProjectService\Projects.Infrastructure\Projects.Infrastructure.csproj", "{4436986E-2192-4F01-9182-6F3FCCED88DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasks.Contracts", "TaskService\Task.Contracts\Tasks.Contracts.csproj", "{FF7123C4-EF2F-4EDB-B38C-A5B306379B47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{4436986E-2192-4F01-9182-6F3FCCED88DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4436986E-2192-4F01-9182-6F3FCCED88DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4436986E-2192-4F01-9182-6F3FCCED88DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF7123C4-EF2F-4EDB-B38C-A5B306379B47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF7123C4-EF2F-4EDB-B38C-A5B306379B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF7123C4-EF2F-4EDB-B38C-A5B306379B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF7123C4-EF2F-4EDB-B38C-A5B306379B47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,5 +94,6 @@ Global
 		{4A267C1B-444D-477B-8055-DFA8813D4E3F} = {100588B6-6FDC-4B02-A45E-936A644599E7}
 		{6FAC2FF7-0A31-4EB6-AD96-213D607859D5} = {100588B6-6FDC-4B02-A45E-936A644599E7}
 		{4436986E-2192-4F01-9182-6F3FCCED88DF} = {100588B6-6FDC-4B02-A45E-936A644599E7}
+		{FF7123C4-EF2F-4EDB-B38C-A5B306379B47} = {C3CEA1F1-F1DE-46E3-BB54-4F1BC03140D2}
 	EndGlobalSection
 EndGlobal
