@@ -10,8 +10,7 @@ internal class Program
 
         builder.Services.AddOpenApi();
 
-        //builder.Services.AddAppContext();
-
+      //  builder.Services.AddAppContext();
 
         var app = builder.Build();
 
