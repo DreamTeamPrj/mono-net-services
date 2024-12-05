@@ -1,30 +1,28 @@
+using Projects.DataPersistance;
 
-internal class Program
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+
+builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddDatabaseContext(builder.Configuration);
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    private static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
+    app.MapOpenApi();
 
-
-        builder.Services.AddControllers();
-
-        builder.Services.AddOpenApi();
-
-      //  builder.Services.AddAppContext();
-
-        var app = builder.Build();
-
-        if (app.Environment.IsDevelopment())
-        {
-            app.MapOpenApi();
-        }
-
-        app.UseHttpsRedirection();
-
-        app.UseAuthorization();
-
-        app.MapControllers();
-
-        app.Run();
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
