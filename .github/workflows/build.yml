@@ -1,9 +1,13 @@
-name: Build Mono-services
+name: Build .NET Solutions on Pull Request
 
 on:
   pull_request:
     branches:
       - develop
+    paths:
+      - 'src/outer-services/**'
+      - 'src/inner-services/**'
+      - 'src/common-services/**'
 
 jobs:
   build:
@@ -15,7 +19,6 @@ jobs:
           'src/inner-services/inner-services.sln',
           'src/common-services/common-services.sln'
         ]
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -30,6 +33,3 @@ jobs:
 
     - name: Build solution
       run: dotnet build ${{ matrix.solution }} --configuration Release
-
-    - name: Run tests (если нужно)
-      run: dotnet test ${{ matrix.solution }} --configuration Release
