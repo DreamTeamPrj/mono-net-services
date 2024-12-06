@@ -47,33 +47,42 @@ jobs:
 
             console.log(`Found issue #${issueNumber}: ${issue.title}`);
             
+            // Получаем проекты репозитория
             const { data: projects } = await github.rest.projects.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
             });
 
-            const project = projects.find(p => p.name === 'Task list' || p.id === 2);
+            // Логируем проекты, чтобы увидеть, какие доступны
+            console.log('Projects found: ', projects);
+
+            // Ищем проект по имени или ID
+            const project = projects.find(p => p.name === 'Task list' || p.id === 2); // ID можно уточнить
             if (!project) {
-              console.log('Project not found');
+              console.log('Project "Task list" not found');
               return;
             }
 
+            // Ищем колонку "In Develop"
             const column = project.columns.find(c => c.name === 'In Develop');
             if (!column) {
               console.log('Column "In Develop" not found');
               return;
             }
 
+            // Получаем карты в колонке
             const { data: cards } = await github.rest.projects.listCards({
               column_id: column.id,
             });
 
+            // Ищем карту для issue
             const issueCard = cards.find(card => card.content_url.includes(`/issues/${issueNumber}`));
             if (!issueCard) {
               console.log(`No card found for issue #${issueNumber}`);
               return;
             }
 
+            // Перемещаем карту в колонку "In Develop"
             await github.rest.projects.moveCard({
               card_id: issueCard.id,
               position: 'top',
