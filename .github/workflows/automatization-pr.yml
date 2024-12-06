@@ -93,5 +93,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ steps.extract-issue.outputs.issue_number }}
-
-#тест
