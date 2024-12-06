@@ -20,6 +20,7 @@ jobs:
           'src/common-services/common-services.sln'
         ]
       fail-fast: false
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -29,17 +30,24 @@ jobs:
       with:
         dotnet-version: '9.0'
 
-    - name: Check if solution file exists
+    - name: Check for changes in solution
+      id: check_changes
       run: |
-        if [ ! -f "${{ matrix.solution }}" ]; then
-          echo "Solution file ${matrix.solution} does not exist!";
-          exit 1;  # Завершаем с ошибкой, если файл не найден
+        # Получаем изменения в pull request и проверяем, если изменился файл решения
+        echo "Checking for changes in solution: ${{ matrix.solution }}"
+        git fetch --prune --unshallow
+        if git diff --name-only origin/develop...HEAD | grep -q "${{ matrix.solution }}"; then
+          echo "Changes detected in ${{ matrix.solution }}"
+          echo "solution_changed=true" >> $GITHUB_ENV
+        else
+          echo "No changes detected in ${{ matrix.solution }}"
+          echo "solution_changed=false" >> $GITHUB_ENV
         fi
 
     - name: Restore dependencies
+      if: env.solution_changed == 'true'
       run: dotnet restore ${{ matrix.solution }}
-      continue-on-error: true
 
     - name: Build solution
+      if: env.solution_changed == 'true'
       run: dotnet build ${{ matrix.solution }} --configuration Release
-      continue-on-error: true
