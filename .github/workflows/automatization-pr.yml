@@ -17,7 +17,8 @@ jobs:
           echo "::set-output name=issue_number::$(echo '${{ github.event.pull_request.head.ref }}' | sed -E 's/^feature\/([0-9]+)-.*/\1/')"
 
       - name: Debug issue number
-        run: echo 'Extracted issue number: ${{ steps.extract-issue.outputs.issue_number }}'
+        run: | 
+            echo "Extracted issue number: ${{ steps.extract-issue.outputs.issue_number }}"
 
       - name: Validate issue number
         id: validate-issue
