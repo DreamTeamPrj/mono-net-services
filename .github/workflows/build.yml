@@ -1,0 +1,35 @@
+name: Build Mono-services
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        solution: [
+          'src/outer-services/outer-services.sln',
+          'src/inner-services/inner-services.sln',
+          'src/common-services/common-services.sln'
+        ]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0'
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ matrix.solution }}
+
+    - name: Build solution
+      run: dotnet build ${{ matrix.solution }} --configuration Release
+
+    - name: Run tests (если нужно)
+      run: dotnet test ${{ matrix.solution }} --configuration Release
