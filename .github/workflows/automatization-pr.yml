@@ -1,0 +1,50 @@
+name: Update Issue Status in GitHub Project
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  update-issue-status:
+    if: github.event.pull_request.base.ref == 'develop'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract issue number from branch name
+        id: extract-issue
+        run: echo "::set-output name=issue_number::$(echo '${{ github.event.pull_request.head.ref }}' | sed -E 's/^feature\/([0-9]+)-.*/\1/')"
+
+      - name: Update issue status in GitHub Project
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issueNumber = core.getInput('issue_number');
+            const { data: projects } = await github.rest.projects.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const project = projects.find(p => p.name === 'YourProjectName');
+            if (!project) {
+              throw new Error('Project not found');
+            }
+
+            const { data: cards } = await github.rest.projects.listCards({
+              column_id: project.columns.find(c => c.name === 'In Develop').id,
+            });
+
+            const issueCard = cards.find(card => card.content_url.includes(`/issues/${issueNumber}`));
+            if (!issueCard) {
+              throw new Error(`No card found for issue #${issueNumber}`);
+            }
+
+            await github.rest.projects.moveCard({
+              card_id: issueCard.id,
+              position: 'top',
+              column_id: project.columns.find(c => c.name === 'In Develop').id,
+            });
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          issue_number: ${{ steps.extract-issue.outputs.issue_number }}
