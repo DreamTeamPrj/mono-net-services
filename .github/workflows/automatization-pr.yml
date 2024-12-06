@@ -16,32 +16,36 @@ jobs:
         run: |
           echo "::set-output name=issue_number::$(echo '${{ github.event.pull_request.head.ref }}' | sed -E 's/^feature\/([0-9]+)-.*/\1/')"
 
-      - name: Check if issue number is valid
+      - name: Debug issue number
+        run: echo 'Extracted issue number: ${{ steps.extract-issue.outputs.issue_number }}'
+
+      - name: Validate issue number
         id: validate-issue
         run: |
           if [[ -z "${{ steps.extract-issue.outputs.issue_number }}" ]]; then
-            echo "No valid issue number found in branch name."
-            exit 0
+            echo "No valid issue number found. Skipping.";
+            exit 0;
           fi
-        continue-on-error: true
 
       - name: Update issue status in GitHub Project
         if: success() && steps.validate-issue.conclusion == 'success'
         uses: actions/github-script@v6
         with:
           script: |
-            const issueNumber = core.getInput('issue_number');
+            const issueNumber = parseInt(core.getInput('issue_number'), 10);
+            if (!issueNumber) {
+              console.log('No valid issue number found. Exiting.');
+              return;
+            }
+
             const { data: issue } = await github.rest.issues.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issueNumber,
             });
 
-            if (!issue) {
-              console.log(`Issue #${issueNumber} not found.`);
-              return;
-            }
-
+            console.log(`Found issue #${issueNumber}: ${issue.title}`);
+            
             const { data: projects } = await github.rest.projects.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -74,5 +78,9 @@ jobs:
               position: 'top',
               column_id: column.id,
             });
+
+            console.log(`Issue #${issueNumber} moved to column "In Develop".`);
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          issue_number: ${{ steps.extract-issue.outputs.issue_number }}
