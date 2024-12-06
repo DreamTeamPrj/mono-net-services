@@ -19,6 +19,7 @@ jobs:
           'src/inner-services/inner-services.sln',
           'src/common-services/common-services.sln'
         ]
+      fail-fast: false
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -27,6 +28,13 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '9.0'
+
+    - name: Check if solution file exists
+      run: |
+        if [ ! -f "${{ matrix.solution }}" ]; then
+          echo "Solution file ${matrix.solution} does not exist!";
+          exit 1;  # Завершаем с ошибкой, если файл не найден
+        fi
 
     - name: Restore dependencies
       run: dotnet restore ${{ matrix.solution }}
