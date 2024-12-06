@@ -9,7 +9,7 @@
         /// <summary>
         /// Идентификатор
         /// </summary>
-        public TId Id { get; set; }
+        public TId Id { get; set; } //aaa
 
         /// <summary>
         /// Дата создания
