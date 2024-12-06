@@ -13,13 +13,35 @@ jobs:
     steps:
       - name: Extract issue number from branch name
         id: extract-issue
-        run: echo "::set-output name=issue_number::$(echo '${{ github.event.pull_request.head.ref }}' | sed -E 's/^feature\/([0-9]+)-.*/\1/')"
+        run: |
+          echo "::set-output name=issue_number::$(echo '${{ github.event.pull_request.head.ref }}' | sed -E 's/^feature\/([0-9]+)-.*/\1/')"
+
+      - name: Check if issue number is valid
+        id: validate-issue
+        run: |
+          if [[ -z "${{ steps.extract-issue.outputs.issue_number }}" ]]; then
+            echo "No valid issue number found in branch name."
+            exit 0
+          fi
+        continue-on-error: true
 
       - name: Update issue status in GitHub Project
+        if: success() && steps.validate-issue.conclusion == 'success'
         uses: actions/github-script@v6
         with:
           script: |
             const issueNumber = core.getInput('issue_number');
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+            });
+
+            if (!issue) {
+              console.log(`Issue #${issueNumber} not found.`);
+              return;
+            }
+
             const { data: projects } = await github.rest.projects.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -27,24 +49,33 @@ jobs:
 
             const project = projects.find(p => p.name === 'YourProjectName');
             if (!project) {
-              throw new Error('Project not found');
+              console.log('Project not found');
+              return;
+            }
+
+            const column = project.columns.find(c => c.name === 'In Develop');
+            if (!column) {
+              console.log('Column "In Develop" not found');
+              return;
             }
 
             const { data: cards } = await github.rest.projects.listCards({
-              column_id: project.columns.find(c => c.name === 'In Develop').id,
+              column_id: column.id,
             });
 
             const issueCard = cards.find(card => card.content_url.includes(`/issues/${issueNumber}`));
             if (!issueCard) {
-              throw new Error(`No card found for issue #${issueNumber}`);
+              console.log(`No card found for issue #${issueNumber}`);
+              return;
             }
 
             await github.rest.projects.moveCard({
               card_id: issueCard.id,
               position: 'top',
-              column_id: project.columns.find(c => c.name === 'In Develop').id,
+              column_id: column.id,
             });
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          issue_number: ${{ steps.extract-issue.outputs.issue_number }}
+
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            issue_number: ${{ steps.extract-issue.outputs.issue_number }}
