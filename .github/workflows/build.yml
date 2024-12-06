@@ -36,13 +36,16 @@ jobs:
       id: check_changes
       run: |
         echo "Checking for changes in solution: ${{ matrix.solution }}"
-        
+
         # Получаем список изменённых файлов в PR
         changed_files=$(git diff --name-only origin/develop...HEAD)
         echo "Changed files: $changed_files"
         
-        # Проверяем изменения только в соответствующей папке для решения
-        if echo "$changed_files" | grep -q "^src/$(dirname ${{ matrix.solution }})/"; then
+        # Получаем директорию, которая соответствует текущему решению из матрицы
+        solution_dir=$(dirname ${{ matrix.solution }})
+        
+        # Проверяем, если изменения затрагивают эту директорию
+        if echo "$changed_files" | grep -q "^$solution_dir/"; then
           echo "Changes detected in solution: ${{ matrix.solution }}"
           echo "solution_changed=true" >> $GITHUB_ENV
         else
