@@ -52,7 +52,7 @@ jobs:
               repo: context.repo.repo,
             });
 
-            const project = projects.find(p => p.name === 'Task list');
+            const project = projects.find(p => p.name === 'Task list' || p.id === 2);
             if (!project) {
               console.log('Project not found');
               return;
