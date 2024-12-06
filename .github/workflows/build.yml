@@ -24,6 +24,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
     - name: Set up .NET SDK
       uses: actions/setup-dotnet@v3
@@ -33,14 +35,21 @@ jobs:
     - name: Check for changes in solution
       id: check_changes
       run: |
-        # Получаем изменения в pull request и проверяем, если изменился файл решения
         echo "Checking for changes in solution: ${{ matrix.solution }}"
-        git fetch --prune --unshallow
-        if git diff --name-only origin/develop...HEAD | grep -q "${{ matrix.solution }}"; then
-          echo "Changes detected in ${{ matrix.solution }}"
+
+        # Получаем список изменённых файлов в PR
+        changed_files=$(git diff --name-only origin/develop...HEAD)
+        echo "Changed files: $changed_files"
+        
+        # Получаем директорию, которая соответствует текущему решению из матрицы
+        solution_dir=$(dirname ${{ matrix.solution }})
+        
+        # Проверяем, если изменения затрагивают эту директорию
+        if echo "$changed_files" | grep -q "^$solution_dir/"; then
+          echo "Changes detected in solution: ${{ matrix.solution }}"
           echo "solution_changed=true" >> $GITHUB_ENV
         else
-          echo "No changes detected in ${{ matrix.solution }}"
+          echo "No changes detected in solution: ${{ matrix.solution }}"
           echo "solution_changed=false" >> $GITHUB_ENV
         fi
 
