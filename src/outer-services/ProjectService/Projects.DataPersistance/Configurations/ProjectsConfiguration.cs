@@ -14,8 +14,8 @@ namespace Projects.DataPersistance.Configurations
                 .HasForeignKey(x => x.ProjectId);
 
             builder.HasOne(x => x.ParentProject)
-                   .WithMany(x => x.SubProjects)
-                   .HasForeignKey(x => x.ParentProjectId);
+                .WithMany(x => x.SubProjects)
+                .HasForeignKey(x => x.ParentProjectId);
         }
     }
 

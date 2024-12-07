@@ -66,12 +66,12 @@ namespace Projects.Core.Entities
         /// <summary>
         /// Потраченное время
         /// </summary>
-        public string SpentTime { get; set; }
+        public string? SpentTime { get; set; }
 
         /// <summary>
         /// Планируемое время
         /// </summary>
-        public string TimeSpan { get; set; }
+        public string? TimeSpan { get; set; }
 
         /// <summary>
         /// Идентификатор релиза
