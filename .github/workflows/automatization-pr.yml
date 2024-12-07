@@ -91,7 +91,5 @@ jobs:
 
             console.log(`Issue #${issueNumber} moved to column "In Develop".`);
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
           ISSUE_NUMBER: ${{ steps.extract-issue.outputs.issue_number }}
-
-# aaa
