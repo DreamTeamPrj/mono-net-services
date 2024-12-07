@@ -20,41 +20,41 @@ namespace Projects.Core.Entities
         /// <summary>
         /// Список задач в проекте
         /// </summary>
-        public ICollection<Task> TaskList { get; set; }
+        public ICollection<Task> TaskList { get; set; } = new List<Task>();
 
         /// <summary>
         /// Список статусов
         /// </summary>
-        public List<int> StatusList { get; set; }
+        public List<int> StatusList { get; set; } = new List<int>();
 
         /// <summary>
         /// Обязательные статусы
         /// </summary>
-        public List<int> RequiredStatuses { get; set; }
+        public List<int> RequiredStatuses { get; set; } = new List<int>();
 
         /// <summary>
         /// Списиок релизов
         /// </summary>
-        public ICollection<Release> ReleaseList { get; set; }
+        public ICollection<Release> ReleaseList { get; set; } = new List<Release>();
 
         /// <summary>
         /// Список создателей/заказчиков
         /// </summary>
-        public List<int> CustomersId { get; set; }
+        public List<int> CustomersId { get; set; } = new List<int>();
 
         /// <summary>
         /// Идентификатор родительского проекта
         /// </summary>
-        public int ParentProjectId { get; set; }
+        public int? ParentProjectId { get; set; }
 
         /// <summary>
         /// Родительский проект
         /// </summary>
-        public Project ParentProject { get; set; }
+        public Project? ParentProject { get; set; }
 
         /// <summary>
         /// Подпроекты
         /// </summary>
-        public ICollection<Project> SubProjects { get; set; }
+        public ICollection<Project> SubProjects { get; set; } = new List<Project>();
     }
 }
