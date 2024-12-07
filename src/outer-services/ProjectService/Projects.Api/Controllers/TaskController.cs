@@ -7,7 +7,7 @@ namespace Projects.Api.Controllers
     {
 
         [HttpPost]
-        public Task<long> AddTask(AddTaskRequest request)
+        public Task<long> AddTask(AddTaskCommand request)
         {
             return Mediator.Send(request);
         }

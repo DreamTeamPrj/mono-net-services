@@ -9,7 +9,7 @@ namespace Projects.Application
     {
         public MappingProfile()
         {
-            CreateMap<AddTaskRequest, TaskEntity>();
+            CreateMap<AddTaskCommand, TaskEntity>();
         }
     }
 

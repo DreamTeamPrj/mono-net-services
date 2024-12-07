@@ -19,7 +19,7 @@ namespace Projects.Application.Tasks.TaskRequest
         /// </summary>
         public int? Status { get; set; }
         /// <summary>
-        /// приорете задачи 
+        /// приоретет задачи 
         /// </summary>
         public Priority Priority { get; set; }
         /// <summary>
@@ -31,7 +31,7 @@ namespace Projects.Application.Tasks.TaskRequest
         /// </summary>
         public int? WorkerId { get; set; }
         /// <summary>
-        /// ссылка на родительскую подзадачу (если она есть)
+        /// ссылка на родительскую задачу (если она есть)
         /// </summary>
         public long? ParrentTaskId { get; set; }
         /// <summary>

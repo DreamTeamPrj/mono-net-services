@@ -7,16 +7,16 @@ using TaskEntity = Projects.Core.Entities.Task;
 
 namespace Projects.Application.Tasks.TaskHandler
 {
-    public class AddTaskHandler : IRequestHandler<AddTaskRequest, long>
+    public class AddTaskCommandHanlder : IRequestHandler<AddTaskCommand, long>
     {
         private readonly ProjectDbContext _context;
         private readonly IMapper _mapper;
-        public AddTaskHandler(ProjectDbContext context , IMapper mapper) 
+        public AddTaskCommandHanlder(ProjectDbContext context , IMapper mapper) 
         {
             _context = context;
             _mapper = mapper;
         }
-        public async Task<long> Handle(AddTaskRequest request, CancellationToken cancellationToken)
+        public async Task<long> Handle(AddTaskCommand request, CancellationToken cancellationToken)
         {
             var project = await _context.Projects.Where(x => x.Id == request.ProjectId).FirstOrDefaultAsync();
 
