@@ -9,11 +9,7 @@ namespace Projects.Application
     {
         public MappingProfile()
         {
-            CreateMap<AddTaskRequest, TaskEntity>()
-                .ForMember(dest => dest.Number, opt => opt.Ignore()) 
-                .ForMember(dest => dest.DescriptionLink, opt => opt.MapFrom(src => src.DescriptionLink))
-                .ForMember(dest => dest.ParentTask, opt => opt.Ignore()) 
-                .ForMember(dest => dest.Project, opt => opt.Ignore());
+            CreateMap<AddTaskRequest, TaskEntity>();
         }
     }
 

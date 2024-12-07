@@ -56,5 +56,10 @@ namespace Projects.Core.Entities
         /// Подпроекты
         /// </summary>
         public ICollection<Project> SubProjects { get; set; } = new List<Project>();
+
+        /// <summary>
+        /// Стандартный статус для задач
+        /// </summary>
+        public int DefaultStatus { get; set; }
     }
 }

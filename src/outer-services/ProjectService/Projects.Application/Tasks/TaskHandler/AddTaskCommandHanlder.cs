@@ -18,28 +18,29 @@ namespace Projects.Application.Tasks.TaskHandler
         }
         public async Task<long> Handle(AddTaskRequest request, CancellationToken cancellationToken)
         {
-            var a= request.ProjectId;
-            var project = _context.Projects.Where(x => x.Id == request.ProjectId).FirstOrDefault();
+            var project = await _context.Projects.Where(x => x.Id == request.ProjectId).FirstOrDefaultAsync();
+
             if (project == null) 
             {
                 throw new ArgumentException();
             }
 
-            var task =_mapper.Map<TaskEntity>(request);
+            var task = _mapper.Map<TaskEntity>(request);
+
             task.Number = $"{project.Tag}{project.TaskList.Count + 1}";
 
-            task.ParentTask = _context.Tasks
+            task.ParentTask = await _context.Tasks
                 .Where(x => x.ParentTaskId == request.ParrentTaskId)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
-            task.Project = project;
-
+            task.ProjectId = project.Id;
+            task.StatusId = request.Status ?? project.DefaultStatus;
             task.CreateDate = DateTime.UtcNow;
 
             task.InspectorsId = project.CustomersId;
 
-            _context.Tasks.Add(task);
-            _context.SaveChanges();
+            await _context.Tasks.AddAsync(task);
+            await _context.SaveChangesAsync();
 
             return task.Id;
         }
