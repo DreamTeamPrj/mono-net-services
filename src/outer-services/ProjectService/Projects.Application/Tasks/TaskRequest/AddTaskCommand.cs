@@ -3,7 +3,7 @@ using Projects.Core.Enums;
 
 namespace Projects.Application.Tasks.TaskRequest
 {
-    public class AddTaskRequest : IRequest<long>
+    public class AddTaskCommand : IRequest<long>
     {
         public int ProjectId { get; set; }
         /// <summary>
